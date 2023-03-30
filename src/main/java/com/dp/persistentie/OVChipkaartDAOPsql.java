@@ -51,14 +51,14 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO{
     @Override
     public boolean update(OVChipkaart ovChipkaart) {
         String query = """
-                UPDATE 
+                UPDATE
                     ov_chipkaart
-                SET 
-                    geldig_tot = ?, 
-                    klasse = ?, 
-                    saldo = ?, 
-                    reiziger_id = ? 
-                WHERE 
+                SET
+                    geldig_tot = ?,
+                    klasse = ?,
+                    saldo = ?,
+                    reiziger_id = ?
+                WHERE
                     kaart_nummer = ?""";
 
         try {
@@ -81,11 +81,7 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO{
 
     @Override
     public boolean delete(OVChipkaart ovChipkaart) {
-        String query = """
-                DELETE FROM 
-                    ov_chipkaart_product 
-                WHERE kaart_nummer = ?
-                """;
+        String query = "DELETE FROM ov_chipkaart_product WHERE kaart_nummer = ?";
 
         try {
             PreparedStatement pst = conn.prepareStatement(query);
@@ -112,17 +108,16 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO{
     public List<OVChipkaart> findByReiziger(Reiziger reiziger) {
         List<OVChipkaart> ovChipkaartList = new ArrayList<>();
         String query = """
-                SELECT 
-                    kaart_nummer, 
-                    geldig_tot, 
-                    klasse, 
-                    saldo, 
-                    reiziger_id 
-                FROM 
+                SELECT
+                    kaart_nummer,
+                    geldig_tot,
+                    klasse,
+                    saldo,
+                    reiziger_id
+                FROM
                     ov_chipkaart
                 WHERE
-                    reiziger_id = ? 
-                """;
+                    reiziger_id = ?""";
 
         try {
             PreparedStatement pst = conn.prepareStatement(query);

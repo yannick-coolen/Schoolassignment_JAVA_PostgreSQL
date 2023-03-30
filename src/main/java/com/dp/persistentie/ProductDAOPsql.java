@@ -21,10 +21,10 @@ public class ProductDAOPsql implements ProductDAO {
     public boolean save(Product product) {
         String query = """
                 INSERT INTO product (
-                    product_nummer, 
-                    naam, 
-                    beschrijving, 
-                    prijs) 
+                    product_nummer,
+                    naam,
+                    beschrijving,
+                    prijs)
                 VALUES (?, ?, ?, ?)""";
 
         try {
@@ -41,7 +41,7 @@ public class ProductDAOPsql implements ProductDAO {
             for (OVChipkaart ovChipkaart : product.getOvChipkaarten()) {
                 String query2 = """
                         INSERT INTO ov_chipkaart_product (
-                            kaart_nummer, 
+                            kaart_nummer,
                             product_nummer)
                         VALUES (?, ?)""";
                 pst = conn.prepareStatement(query2);
@@ -61,11 +61,11 @@ public class ProductDAOPsql implements ProductDAO {
     @Override
     public boolean update(Product product) {
         String query = """
-                UPDATE 
+                UPDATE
                     product
-                SET 
-                    naam = ?, 
-                    beschrijving = ?, 
+                SET
+                    naam = ?,
+                    beschrijving = ?,
                     prijs = ?
                 WHERE product_nummer = ?""";
 
@@ -87,9 +87,9 @@ public class ProductDAOPsql implements ProductDAO {
     @Override
     public boolean delete(Product product) {
         String query = """
-                DELETE FROM 
-                    ov_chipkaart_product 
-                WHERE 
+                DELETE FROM
+                    ov_chipkaart_product
+                WHERE
                     product_nummer = ?""";
 
         try {
@@ -117,10 +117,10 @@ public class ProductDAOPsql implements ProductDAO {
         List<Product> productList = new ArrayList<>();
         String query = """
                 SELECT p.product_nummer, p.naam, p.beschrijving, p.prijs FROM product p
-                    JOIN ov_chipkaart_product ocp 
+                    JOIN ov_chipkaart_product ocp
                         ON p.product_nummer = ocp.product_nummer
-                    JOIN ov_chipkaart oc 
-                        ON oc.kaart_nummer = ocp.kaart_nummer                   
+                    JOIN ov_chipkaart oc
+                        ON oc.kaart_nummer = ocp.kaart_nummer
                 WHERE ocp.kaart_nummer = ?""";
 
         try{

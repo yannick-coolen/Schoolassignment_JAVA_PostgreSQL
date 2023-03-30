@@ -14,6 +14,8 @@ public class ReizigerDAOPsql implements ReizigerDAO {
 
     public ReizigerDAOPsql(Connection conn) {
         this.conn = conn;
+        this.adao = null;
+        this.ovdao = null;
     }
 
     @Override
@@ -51,13 +53,13 @@ public class ReizigerDAOPsql implements ReizigerDAO {
     @Override
     public boolean update(Reiziger reiziger) {
         String query = """
-                UPDATE reiziger 
-                SET 
-                    voorletters = ?, 
-                    tussenvoegsel = ?, 
-                    achternaam = ?, 
-                    geboortedatum = ? 
-                WHERE 
+                UPDATE reiziger
+                SET
+                    voorletters = ?,
+                    tussenvoegsel = ?,
+                    achternaam = ?,
+                    geboortedatum = ?
+                WHERE
                 reiziger_id = ?""";
 
         try {
@@ -114,14 +116,14 @@ public class ReizigerDAOPsql implements ReizigerDAO {
     public Reiziger findById(int id) {
         Reiziger reiziger = new Reiziger();
         String query = """
-            SELECT 
-                reiziger_id, 
-                voorletters, 
-                tussenvoegsel, 
-                achternaam, 
-                geboortedatum  
-            FROM reiziger 
-            WHERE 
+            SELECT
+                reiziger_id,
+                voorletters,
+                tussenvoegsel,
+                achternaam,
+                geboortedatum
+            FROM reiziger
+            WHERE
                 reiziger_id = ?""";
 
         try {
@@ -148,14 +150,14 @@ public class ReizigerDAOPsql implements ReizigerDAO {
         Reiziger reiziger = new Reiziger();
         List<Reiziger> reizigerList = new ArrayList<>();
         String query = """
-            SELECT 
-                reiziger_id, 
-                voorletters, 
-                tussenvoegsel, 
-                achternaam, 
-                geboortedatum  
-            FROM reiziger 
-            WHERE 
+            SELECT
+                reiziger_id,
+                voorletters,
+                tussenvoegsel,
+                achternaam,
+                geboortedatum
+            FROM reiziger
+            WHERE
                 geboortedatum = ?""";
 
         try {
@@ -183,12 +185,12 @@ public class ReizigerDAOPsql implements ReizigerDAO {
     public List<Reiziger> findAll() {
         List<Reiziger> reizigerList = new ArrayList<>();
         String query = """
-            SELECT 
-                reiziger_id, 
-                voorletters, 
-                tussenvoegsel, 
-                achternaam, 
-                geboortedatum  
+            SELECT
+                reiziger_id,
+                voorletters,
+                tussenvoegsel,
+                achternaam,
+                geboortedatum
             FROM reiziger""";
         try {
             PreparedStatement pst = conn.prepareStatement(query);
@@ -201,7 +203,6 @@ public class ReizigerDAOPsql implements ReizigerDAO {
                 reiziger.setTussenvoegsel(rs.getString(3));
                 reiziger.setAchternaam(rs.getString(4));
                 reiziger.setGeboortedatum(rs.getDate(5));
-
                 reizigerList.add(reiziger);
             }
             pst.close();
