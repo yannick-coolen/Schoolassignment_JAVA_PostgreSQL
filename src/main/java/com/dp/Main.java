@@ -264,7 +264,7 @@ public class Main {
                 7, "Seniorenproduct", "20% korting voor 65+", 30.00);
 
         Product product2 = new Product(
-                8, "Retour Amsterdam - Antwerpen", "20% korting voor 65+", 25.00);
+                8, "Retour Amsterdam - Antwerpen", "Retourskorting 10%", 25.00);
 
         // Save producten
         ovChipkaart1.addProduct(product1);
@@ -300,7 +300,8 @@ public class Main {
         // End Read
 
         // Start Update
-        product1 = new Product(7, "Seniorenproduct", "20% korting voor 65+", 35.00);
+        product1 = new Product(
+                7, "Seniorenproduct", "20% korting voor 65+", 35.00);
 
         pdao.update(product1);
 
