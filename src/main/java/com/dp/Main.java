@@ -315,7 +315,8 @@ public class Main {
         pdao.delete(product2);
         ovdao.delete(ovChipkaart1);
         ovdao.delete(ovChipkaart2);
-        rdao.delete(reiziger1);
+
         // Start Delete
+        rdao.delete(reiziger1);
     }
 }
